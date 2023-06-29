@@ -33,8 +33,7 @@ ENV JIRA_USER=jira \
     JVM_MAXIMUM_MEMORY=20g \
     JVM_CODE_CACHE_ARGS='-XX:InitialCodeCacheSize=1g -XX:ReservedCodeCacheSize=2g' \
     AGENT_PATH=/var/agent \
-    AGENT_FILENAME=atlassian-agent.jar \
-    ENABLE_CJK_FONT=true
+    AGENT_FILENAME=atlassian-agent.jar
 
 
 ENV JAVA_OPTS="-javaagent:${AGENT_PATH}/${AGENT_FILENAME} ${JAVA_OPTS}"
@@ -43,21 +42,10 @@ COPY --from=base $JIRA_HOME $JIRA_HOME
 COPY --from=base $JIRA_INSTALL $JIRA_INSTALL
 COPY --from=base $AGENT_PATH $AGENT_PATH
 
-#RUN mkdir /usr/share/fonts/opentype
-#COPY SourceHanSansSC-Normal.otf /usr/share/fonts/opentype
-
-RUN apt update \
-&& apt install -y fonts-droid-fallback fonts-wqy-zenhei fonts-wqy-microhei fonts-arphic-ukai fonts-arphic-uming \
-&& rm -rf /var/lib/{apt,dpkg,cache,log}/ 
-#&& mkfontscale \
-#&& mkfontdir \
-#&& fc-cache -fv
-
-
 RUN export CONTAINER_USER=$JIRA_USER \
 && export CONTAINER_GROUP=$JIRA_GROUP \
 && groupadd -r $JIRA_GROUP && useradd -r -g $JIRA_GROUP $JIRA_USER \
-&& chown -R $JIRA_USER:$JIRA_GROUP ${JIRA_INSTALL} ${JIRA_HOME} ${AGENT_PATH} 
+&& chown -R $JIRA_USER:$JIRA_GROUP ${JIRA_INSTALL} ${JIRA_HOME}/ ${AGENT_PATH}
 
 VOLUME $JIRA_HOME
 USER $JIRA_USER
