@@ -18,10 +18,10 @@ ENV JIRA_USER=jira \
 
 RUN mkdir -p ${JIRA_INSTALL} ${JIRA_HOME} ${AGENT_PATH}
 COPY atlassian-jira-software-${JIRA_VERSION}-standalone $JIRA_INSTALL/
-COPY jira.xx.delu1.com-server.xml $JIRA_INSTALL/conf/server.xml
-COPY setenv-9.10.0-large.sh $JIRA_INSTALL/bin/setenv.sh
-COPY atlassian-agent-v1.3.3.jar ${AGENT_PATH}/${AGENT_FILENAME}
-COPY mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar
+COPY script/jira.xx.delu1.com-server.xml $JIRA_INSTALL/conf/server.xml
+COPY script/setenv-9.10.0-large.sh $JIRA_INSTALL/bin/setenv.sh
+COPY jar/atlassian-agent-v1.3.3.jar ${AGENT_PATH}/${AGENT_FILENAME}
+COPY /jar/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar
 
 
 #RUN curl -o ${AGENT_PATH}/${AGENT_FILENAME}  https://github.com/haxqer/jira/releases/download/v${AGENT_VERSION}/atlassian-agent.jar -L \
