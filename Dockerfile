@@ -17,8 +17,8 @@ ENV JIRA_USER=jira \
     AGENT_FILENAME=atlassian-agent.jar 
 
 RUN mkdir -p ${JIRA_INSTALL} ${JIRA_HOME} ${AGENT_PATH}
-COPY atlassian-jira-software-${JIRA_VERSION}-standalone $JIRA_INSTALL
-COPY jira.xx.delu1.com-server.xml $JIRA_INSTALL/atlassian-jira-software-${JIRA_VERSION}-standalone/conf/server.xml
+COPY atlassian-jira-software-${JIRA_VERSION}-standalone $JIRA_INSTALL/
+COPY jira.xx.delu1.com-server.xml $JIRA_INSTALL/conf/server.xml
 COPY atlassian-agent-v1.3.3.jar ${AGENT_PATH}/${AGENT_FILENAME}
 COPY mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar
 
@@ -28,7 +28,9 @@ COPY mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar ${JIRA_INSTALL}/lib/mysql-
 RUN echo "jira.home = ${JIRA_HOME}" > ${JIRA_INSTALL}/atlassian-jira/WEB-INF/classes/jira-application.properties
 
 
-FROM eclipse-temurin:8u362-b09-jre-focal
+#FROM eclipse-temurin:8u362-b09-jre-focal
+#FROM eclipse-temurin:11-jdk-focal
+FROM eclipse-temurin:11-jre-focal
 
 ENV JIRA_USER=jira \
     JIRA_GROUP=jira \

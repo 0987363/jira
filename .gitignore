@@ -4,4 +4,5 @@
 .git/
 .DS_Store
 *.swp
+*.swo
 atlassian-jira-software-*
