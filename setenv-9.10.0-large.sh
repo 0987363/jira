@@ -30,7 +30,7 @@ JVM_MAXIMUM_MEMORY="20480m"
 #
 # The following setting configures the size of JVM code cache.  A high value of reserved size allows Jira to work with more installed apps.
 #
-JVM_CODE_CACHE_ARGS='-XX:InitialCodeCacheSize=32m -XX:ReservedCodeCacheSize=2048m'
+JVM_CODE_CACHE_ARGS='-XX:InitialCodeCacheSize=1024m -XX:ReservedCodeCacheSize=2048m'
 
 #
 # The following are the required arguments for Jira.
