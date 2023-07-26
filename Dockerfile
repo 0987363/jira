@@ -18,12 +18,17 @@ ENV JIRA_USER=jira \
 
 RUN mkdir -p ${JIRA_INSTALL} ${JIRA_HOME} ${AGENT_PATH}
 COPY atlassian-jira-software-9.6.0-standalone $JIRA_INSTALL
+COPY jira.xx.delu1.com-server.xml $JIRA_INSTALL/atlassian-jira-software-9.6.0-standalone/conf/server.xml
+COPY atlassian-agent-v1.3.3.jar ${AGENT_PATH}/${AGENT_FILENAME}
+COPY mysql-connector-java-8.0.22.jar ${JIRA_INSTALL}/lib/mysql-connector-java-8.0.22.jar
 
-RUN curl -o ${AGENT_PATH}/${AGENT_FILENAME}  https://github.com/haxqer/jira/releases/download/v${AGENT_VERSION}/atlassian-agent.jar -L \
-&& curl -o ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_DRIVER_VERSION}/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar -L \
-&& echo "jira.home = ${JIRA_HOME}" > ${JIRA_INSTALL}/atlassian-jira/WEB-INF/classes/jira-application.properties
 
-FROM eclipse-temurin:8u362-b09-jre-jammy
+#RUN curl -o ${AGENT_PATH}/${AGENT_FILENAME}  https://github.com/haxqer/jira/releases/download/v${AGENT_VERSION}/atlassian-agent.jar -L \
+#RUN curl -o ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_DRIVER_VERSION}/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar -L \
+RUN echo "jira.home = ${JIRA_HOME}" > ${JIRA_INSTALL}/atlassian-jira/WEB-INF/classes/jira-application.properties
+
+
+FROM eclipse-temurin:8u362-b09-jre-focal
 
 ENV JIRA_USER=jira \
     JIRA_GROUP=jira \
