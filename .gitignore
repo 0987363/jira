@@ -3,4 +3,5 @@
 .idea/
 .git/
 .DS_Store
+*.swp
 atlassian-jira-software-*
