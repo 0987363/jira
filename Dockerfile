@@ -18,7 +18,7 @@ ENV JIRA_USER=jira \
 
 RUN mkdir -p ${JIRA_INSTALL} ${JIRA_HOME} ${AGENT_PATH}
 COPY atlassian-jira-software-${JIRA_VERSION}-standalone $JIRA_INSTALL/
-COPY script/jira.xx.delu1.com-server.xml $JIRA_INSTALL/conf/server.xml
+COPY script/jira-server.xml $JIRA_INSTALL/conf/server.xml
 COPY script/setenv-9.10.0-large.sh $JIRA_INSTALL/bin/setenv.sh
 COPY jar/atlassian-agent-v1.3.3.jar ${AGENT_PATH}/${AGENT_FILENAME}
 COPY /jar/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar
@@ -31,7 +31,7 @@ RUN echo "jira.home = ${JIRA_HOME}" > ${JIRA_INSTALL}/atlassian-jira/WEB-INF/cla
 
 #FROM eclipse-temurin:8u362-b09-jre-focal
 #FROM eclipse-temurin:11-jdk-focal
-FROM eclipse-temurin:11-jre-focal
+FROM eclipse-temurin:11-jre-jammy
 
 ENV JIRA_USER=jira \
     JIRA_GROUP=jira \
@@ -54,7 +54,7 @@ COPY --from=base $AGENT_PATH $AGENT_PATH
 #RUN mkdir /usr/share/fonts/opentype
 #COPY SourceHanSansSC-Normal.otf /usr/share/fonts/opentype
 
-RUN apt update \
+RUN apt --allow-insecure-repositories update \
 && apt install -y fonts-droid-fallback fonts-wqy-zenhei fonts-wqy-microhei fonts-arphic-ukai fonts-arphic-uming \
 && rm -rf /var/lib/{apt,dpkg,cache,log}/ 
 #&& mkfontscale \
